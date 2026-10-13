@@ -8,9 +8,13 @@ const animal_controller_1 = require("./controller/animal.controller");
 const mongoose_1 = require("mongoose");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
+// mongodb+srv://luv_s0so:Sutijay@050610@cluster0.r8cenxa.mongodb.net/
+// import express from "express";
 app.post("/animal", animal_controller_1.CreateAnimal);
 app.get("/animals", animal_controller_1.GetAllAnimals);
 app.get("/animal/:id", animal_controller_1.GetAnimalById);
+app.patch("/animal/:id", animal_controller_1.UpdateAnimal);
+app.delete("/animal/:id", animal_controller_1.DeleteAnimal);
 const main = async () => {
     try {
         await (0, mongoose_1.connect)("mongodb+srv://luv_s0so:Sutijay050610@cluster0.r8cenxa.mongodb.net/");

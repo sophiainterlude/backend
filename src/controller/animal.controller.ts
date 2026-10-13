@@ -32,3 +32,57 @@ export const GetAnimalById = async (req: Request, res: Response) => {
     res.status(400).json({ message: "Error fetching user" });
   }
 }
+
+export const UpdateAnimal = async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const {name, habitat, limbs, covering} = req.body;
+  try {
+    const animal = await Animals.findByIdAndUpdate(id);
+    if (animal) {
+      animal.name = name ?? animal.name;
+      animal.habitat = habitat ?? animal.habitat;
+      animal.limbs = limbs ?? animal.limbs;
+      animal.covering = covering ?? animal.covering;
+      const updatedAnimal = await animal.save();
+      res.json(animal)
+    } else res.status
+  } catch (error) {
+    res.status(400).json({ message: "Error updating user" });
+  }
+}
+
+
+// export const UpdateAnimal = async (req: Request, res: Response) => {
+//   const id = req.params.id;
+//   const {name, habitat, limbs, covering} = req.body;
+//   try {
+//     const animal = await Animals.findByIdAndUpdate(
+//       id,
+//       req.body,
+//       { new: true, runValidators: true }
+//     );
+
+//     if (!animal) {
+//       res.status(404).json({ message: "Animal not found" });
+//       return;
+//     }
+
+//     res.json(animal);
+//   } catch (error) {
+//     res.status(400).json({ message: "Error updating animal" });
+//   }
+// };
+
+export const DeleteAnimal = async (req: Request, res: Response) => {
+  try {
+    const animal = await Animals.findByIdAndDelete(req.params.id);
+
+    if (!animal) {
+      res.status(404).json({ message: "Animal not found" });
+      return;
+    }
+    res.json({ message: "Animal deleted successfully", animal });
+  } catch (error) {
+    res.status(400).json({ message: "Error deleting animal" });
+  }
+};

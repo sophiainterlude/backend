@@ -1,2 +1,11 @@
-### FETCHING ALL ANIMALS
-GET http://localhost:4200
+
+POST http://localhost:3000/animal
+
+Content-Type: application/json
+
+{
+    "name": "Lion",
+    "habitat": "Savannah",
+    "limbs": 4,
+    "covering": "Fur"
+}
